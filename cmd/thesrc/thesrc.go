@@ -27,7 +27,7 @@ var (
 
 func init() {
 	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, `thesrc is a web news and link server.
+		fmt.Fprint(os.Stderr, `thesrc is a web news and link server.
 
 Usage:
 
@@ -38,7 +38,7 @@ The commands are:
 		for _, c := range subcmds {
 			fmt.Fprintf(os.Stderr, "    %-24s %s\n", c.name, c.description)
 		}
-		fmt.Fprintln(os.Stderr, `
+		fmt.Fprint(os.Stderr, `
 Use "thesrc command -h" for more information about a command.
 
 The options are:
@@ -74,7 +74,7 @@ func main() {
 	}
 
 	fmt.Fprintf(os.Stderr, "unknown subcmd %q\n", subcmd)
-	fmt.Fprintln(os.Stderr, `Run "thesrc -h" for usage.`)
+	fmt.Fprint(os.Stderr, `Run "thesrc -h" for usage.`)
 	os.Exit(1)
 }
 
@@ -100,7 +100,7 @@ func postCmd(args []string) {
 	linkURL := fs.String("link", "", "link URL")
 	body := fs.String("body", "", "body of post")
 	fs.Usage = func() {
-		fmt.Fprintln(os.Stderr, `usage: thesrc post [options]
+		fmt.Fprint(os.Stderr, `usage: thesrc post [options]
 
 Submits a post.
 
@@ -148,16 +148,16 @@ The options are:
 func importCmd(args []string) {
 	fs := flag.NewFlagSet("import", flag.ExitOnError)
 	fs.Usage = func() {
-		fmt.Fprintln(os.Stderr, `usage: thesrc import [options]
+		fmt.Fprint(os.Stderr, `usage: thesrc import [options]
 
 Imports posts from other sites.
 
 The available sites are:
 `)
 		for _, f := range importer.Fetchers {
-			fmt.Fprintln(os.Stderr, "  ", f.Site())
+			fmt.Fprint(os.Stderr, "  ", f.Site())
 		}
-		fmt.Fprintln(os.Stderr, `
+		fmt.Fprint(os.Stderr, `
 
 The options are:
 `)
@@ -211,7 +211,7 @@ func classifyCmd(args []string) {
 	fs := flag.NewFlagSet("classify", flag.ExitOnError)
 	concurrency := fs.Int("c", 10, "concurrent classifiers")
 	fs.Usage = func() {
-		fmt.Fprintln(os.Stderr, `usage: thesrc classify [options]
+		fmt.Fprint(os.Stderr, `usage: thesrc classify [options]
 
 Classifies posts.
 
@@ -298,7 +298,7 @@ func serveCmd(args []string) {
 	staticDir := fs.String("static-dir", app.StaticDir, "static assets directory")
 	reload := flag.Bool("reload", true, "reload templates on each request (dev mode)")
 	fs.Usage = func() {
-		fmt.Fprintln(os.Stderr, `usage: thesrc serve [options] 
+		fmt.Fprint(os.Stderr, `usage: thesrc serve [options] 
 
 Starts the web server that serves the app and API.
 
@@ -335,7 +335,7 @@ func createDBCmd(args []string) {
 	fs := flag.NewFlagSet("createdb", flag.ExitOnError)
 	drop := fs.Bool("drop", false, "drop DB before creating")
 	fs.Usage = func() {
-		fmt.Fprintln(os.Stderr, `usage: thesrc createdb [options] 
+		fmt.Fprint(os.Stderr, `usage: thesrc createdb [options] 
 
 Creates the necessary DB tables and indexes.
 
